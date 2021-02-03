@@ -1,19 +1,18 @@
- The Cluster Validity Index Tooolbox (CVIT) for automatic determination 
- of clusters from clustering solution contains more than 70 functions (m-files)
- This toolbox was developed with MATLAB R2020b.
+The Cluster Validity Index Tooolbox (CVIK) for automatic determination of clusters from clustering solution contains more than 70 functions (m-files).
+This toolbox was developed with MATLAB R2020b.
 
- Developed by
-   Adan Jose-Garcia (adan.jose@cinvestav.mx)
-   Wilfrido Gomez Flores (wgomez@cinvestav.mx)
+Developed by
+   + Adan Jose-Garcia (adan.jose@cinvestav.mx)
+   + Wilfrido Gomez Flores (wgomez@cinvestav.mx)
 
- Please, cite the following paper where this toolbox was introduced:
+Please, cite the following paper where this toolbox was introduced:
 
-   [PENDING]...
+   [PENDING]
 
 
- IMPORTANT: First run "RUN_ME_FIRST.m" file to add this toolbox to search path.
- ------------------------------------------------------------------------
+**IMPORTANT**: First run the "RUN_ME_FIRST.m" file to add this toolbox to search path. Also, look at the demo file to start using the CVIK toolbox.
 
+---
  
    CVI (Cluster validity indices - 24)
    -----------------------------
