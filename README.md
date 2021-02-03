@@ -2,8 +2,8 @@ The Cluster Validity Index Tooolbox (CVIK) for automatic determination of cluste
 This toolbox was developed with MATLAB R2020b.
 
 Developed by
-   + Adan Jose-Garcia (adan.jose@cinvestav.mx)
-   + Wilfrido Gomez Flores (wgomez@cinvestav.mx)
+   + Author 1
+   + Author 2
 
 Please, cite the following paper where this toolbox was introduced:
 
