@@ -1,4 +1,4 @@
-The Cluster Validity Index Tooolbox (CVIK) for automatic determination of clusters from clustering solution contains more than 70 functions (m-files).
+The Cluster Validity Index Tooolbox (CVIK) for automatic determination of clusters contains more than 70 functions (m-files).
 This toolbox was developed with MATLAB R2020b.
 
 Developed by
