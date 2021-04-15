@@ -1,13 +1,15 @@
-The Cluster Validity Index Tooolbox (CVIK) for automatic determination of clusters contains more than 70 functions (m-files).
-This toolbox was developed with MATLAB R2020b.
+**CVIK** is a Cluster Validity Index Tooolbox for automatic determination of the number of clusters (CVIK). It contains more than 70 functions (m-files). This toolbox was developed with MATLAB R2020b.
 
-Developed by
-   + Author 1
-   + Author 2
+A comparison study of the CVIs in **CVIK** using Differential Evolution was reported in the paper:
 
-Please, cite the following paper where this toolbox was introduced:
+```
+A. José-García, and W. Gómez-Flores, and M. Garza-Fabre.
+A survey of cluster validity indices for automatic data clustering using differential evolution.
+The Genetic and Evolutionary Computation Conference (GECCO '21), Lille, France, 2021.
+DOI: 10.1145/3449639.3459341
+```
 
-   [PENDING]
+For more information about the used datasets, visit the [mvc-repository](https://mvc-repository.github.io/) website.
 
 
 **IMPORTANT**: First run the "RUN_ME_FIRST.m" file to add this toolbox to search path. Also, look at the demo file to start using the CVIK toolbox.
@@ -87,3 +89,10 @@ Please, cite the following paper where this toolbox was introduced:
                            - Meila-Heckerman index (mh).
                            - Mirkin coefficient (mc).
 
+
+## Contact:
+
+```
+Adán José-García (adan.jose@cinvestav.mx)
+Wilfrido Gómez-Flores (wgomez@cinvestav.mx)
+```
