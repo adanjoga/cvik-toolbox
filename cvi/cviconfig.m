@@ -54,6 +54,7 @@ elseif strcmpi(cvi,'ch')
     % Calinski-Harabasz index
     fun = @chindex; 
     opt = 'mx';
+    type = 'feature';
 elseif strcmpi(cvi,'pbm')
     % I or PBM index
     fun = @pbmindex;  
@@ -74,6 +75,7 @@ elseif strcmpi(cvi,'sil')
     % Silhouette index
     fun = @silindex;
     opt = 'mx';
+    type = 'relational';
 elseif strcmpi(cvi,'cs')
     % CS index
     fun = @csindex;

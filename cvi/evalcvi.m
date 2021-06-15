@@ -1,17 +1,27 @@
-function struct = evalcvi(X, clust, cvi, distance)
+function struct = evalcvi(X, clust, cvi, varargin)
 % EVALCVI Evaluation of clustering solutions using a cluster validity index.
 %   EVAL = EVALCVI(X, CLUST, CVI) creates an evaluation object
 %   which can be used for estimating the number of clusters on data.
 %
-%   X must be an N-by-P matrix of data with one row per observation and one
-%   column per variable. CLUST is a numeric matrix representing a set of  
-%   clustering solutions. It must have N rows and contain integers. 
-%   Column J contains the cluster indices for each of the N points for the 
+%   X can be an N-by-P matrix of data with one row per observation and one
+%   column per variable or it can be an N-by-N dissimilarity matrix. 
+%   CLUST is a numeric matrix representing a set of  clustering solutions. 
+%   In CLUST, column J contains the cluster indices for each of the N points for the 
 %   J-th clustering solution. CVI is a string representing the criterion
 %   to be used. See the list of available CVIs by typing 'help cviconfig'.
+%   By default, it is assumed that X is an N-by-P matrix and the Euclidean
+%   distance is used.
 %
-%   EVAL = EVALCVI(X, CLUST, CVI, DISTANCE) perform the evaluation using
-%   the specified distance measure. The available built-in measures are:
+%   EVAL return an object with the following properties:
+%   	OptimalK         - The optimal number of clusters suggested.
+%       FitnessK         - The fitness value of the best clustering solution.
+%       InspectedK       - List of the number of clusters inspected.
+%       FitnessValues    - The fitness values for each number of clusters.
+%
+%   EVAL = EVALCVI(..., 'PARAM1', VALUE1, 'PARAM1', VALUE2) accepts one or two
+%   comma-separated optional argument name/value pairs. Parameters are:
+%
+%   'Distance' -  perform the evaluation using a built-in measures:
 %       'euc'           - Euclidean distance (the default).
 %       'neuc'          - Normalized Euclidean distance.
 %       'cos'           - Cosine similarity.
@@ -19,12 +29,11 @@ function struct = evalcvi(X, clust, cvi, distance)
 %       'scorr'         - Spearman's correlation coefficient.
 %       'lap'           - Laplacian distance.
 %
-%   EVALCVI return an object with the following properties:
-%   	OptimalK         - The optimal number of clusters suggested.
-%       FitnessK         - The fitness value of the best clustering solution.
-%       InspectedK       - List of the number of clusters inspected.
-%       FitnessValues    - The fitness values for each number of clusters.
-%
+%   'Datatype' -  perform the evaluation of the CVI depending on:
+%       'feature'       - Feature data (the default). X must be an N-by-P matrix
+%       'relational'    - Normalized Euclidean distance. X must be an N-by-N
+%                         dissimilarity matrix. There is no need to
+%                         indicate a distance function.
 %
 %   Example:
 %   -------
@@ -44,10 +53,17 @@ function struct = evalcvi(X, clust, cvi, distance)
 %   Copyright (c) 2021, A. Jose-Garcia and W. Gomez-Flores
 % ------------------------------------------------------------------------
 
-if nargin < 4 || isempty(distance)
-    distType = 'euc';
-else
-    distType = distance;
+% Parameters validations
+if nargin > 2
+    [varargin{:}] = convertStringsToChars(varargin{:});
+end
+
+pnames = {'distance', 'datatype'}; pdvals = {'euc', 'feature'};
+[Dtype, Xtype] = internal.stats.parseArgs(pnames, pdvals, varargin{:});
+
+
+if ~(strcmp(Xtype,'feature') || strcmp(Xtype,'relational'))
+    error('Unknown input data type. It should be "feature" or "relational".');
 end
 
 % Get the settings for the CVI
@@ -62,7 +78,7 @@ Values = NaN(1,nclust);
 % Perform the evaluation of the cvi for each clustering solution
 for i=1:nclust
     Klist(i) = numel(unique(clust(:,i)));
-    Values(i) = feval(cvifun, X, clust(:,i), distType);        
+    Values(i) = feval(cvifun, X, clust(:,i), 'distance', Dtype, 'datatype', Xtype);        
 end
 
 % Set NaN values if the cvi value is -inf or +inf

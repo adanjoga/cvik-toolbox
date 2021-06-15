@@ -67,12 +67,12 @@ function [IDX,Mb,bFit,mFit,gfit] = acde(X,Kmax,NP,Gmax,cvi,distance)
 % ------------------------------------------------------------------------
 
 % -------------- TO BE REMOVED
-Xmean = mean(X,1)';     % Global mean value of input data X
-DXX = feval(pfun,X',X');
-if strcmpi(cvi,'sdbw')
-    sX  = var(X,0,1);   % Global variance of input data X
-    sXX = sqrt(sum(sX.^2,2)); % 2- norm of input data X
-end
+% Xmean = mean(X,1)';     % Global mean value of input data X
+% DXX = feval(pfun,X',X');
+% if strcmpi(cvi,'sdbw')
+%     sX  = var(X,0,1);   % Global variance of input data X
+%     sXX = sqrt(sum(sX.^2,2)); % 2- norm of input data X
+% end
 % -------------------------------------------------------------------------
 
 if nargin < 6 || isempty(distance)
@@ -86,7 +86,7 @@ pfun = proxconfig(distance);
 TH = 0.5;
 CRmax = 1.0;
 CRmin = 0.5;
-
+G = Gmax;
 % Generation of the initial population, centroids, and threshold values
 D = size(X,2);
 Xmin = min(X,[],1);
@@ -109,7 +109,7 @@ for i = 1:NP
     [Mi, clrs] = checkMi(X,Mi,Ki,pfun);
     
     % Evaluation of a candidate clustering solution
-    fit(i) = feval(cvifun,X,clrs,distance);
+    fit(i) = feval(cvifun,X,clrs,'distance',distance);
 
     % Update the corresponding vector in the initial population
     M(Ti>TH,1:end-1,i) = Mi;
@@ -162,7 +162,7 @@ for g = 1:Gmax
        % Validation of the minimum number of data points per cluster (>=2)
        [Ut,clrs] = checkMi(X,Ut,Ki,pfun);
        % Evaluation of the candidate clustering solution
-       fUi = feval(cvifun,X,clrs,distance);
+       fUi = feval(cvifun,X,clrs,'distance',distance);
        % Update the corresponding individual
        Ui(Ti>TH,:) = Ut; Ri = [Ui,Ti];
        

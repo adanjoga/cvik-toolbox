@@ -1,7 +1,8 @@
-function f = dbindex(X,clrs,K,pfun)
+function f = dbindex(X,clrs,distance)
 % Validacion del agrupamiento
 N = numel(clrs);
 clusts = unique(clrs);
+K = numel(clusts);
 Nk = accumarray(clrs,ones(N,1),[K,1]);
 
 if numel(clusts) ~= K || sum(Nk<2)
@@ -9,6 +10,14 @@ if numel(clusts) ~= K || sum(Nk<2)
     return;
 end
 
+if nargin < 3 || isempty(distance)
+    distType = 'euc';
+else
+    distType = distance;
+end
+pfun = proxconfig(distType);
+
+% ------------------------------------
 % Dispersion intra-cluster
 M = NaN(K,size(X,2));
 sumD = zeros(K,1);

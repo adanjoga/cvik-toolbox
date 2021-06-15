@@ -1,19 +1,19 @@
-function f = chindex(X, clust, distance)
+function f = chindex(X, clust, varargin)
 % CHINDEX Evaluation based on the Calinski-Harabasz criterion.
 %   CHINDEX(X, CLUST) computes the Calinski-Harabasz criterion 
 %   value which can be used for estimating the number of clusters on data.
 %   The optimal number of clusters is the solution with the highest index value.
 %
-%   X must be an N-by-P matrix of data with one row per observation and one
+%   X is an N-by-P matrix of data with one row per observation and one
 %   column per variable. CLUST is a numeric vector that represents 
-%   a clustering solution. By default, Calinski-Harabasz index uses
+%   a clustering solution. By default, the Calinski-Harabasz index uses
 %   the Euclidean distance between points in X.
 %
 %   V = CHINDEX(X, CLUST) returns a positive numeric value corresponding to
 %   the Calinski-Harabasz index.
 %   
-%   V = CHINDEX(X, CLUST, DISTANCE) computes the Calinski-Harabasz index using
-%   the specified distance measure. The available built-in measures are:
+%   V = CHINDEX(..., 'DISTANCE', value) computes the Calinski-Harabasz index using
+%   a specified distance measure. The available built-in measures are:
 %       'euc'           - Euclidean distance (the default).
 %       'neuc'          - Normalized Euclidean distance.
 %       'cos'           - Cosine similarity.
@@ -26,7 +26,7 @@ function f = chindex(X, clust, distance)
 %   -------
 %   load fisheriris;
 %   clust = kmeans(meas,3,'distance','sqeuclidean');
-%   eva   = chindex(meas,clust);
+%   eva   = chindex(meas, clust);
 %
 %
 %   See also EVALCVI, CVICONFIG, SILINDEX, DUNNINDEX
@@ -43,24 +43,28 @@ function f = chindex(X, clust, distance)
 %   Copyright (c) 2021, A. Jose-Garcia and W. Gomez-Flores
 % ------------------------------------------------------------------------
 
+% Parameters validations
+if nargin > 2
+    [varargin{:}] = convertStringsToChars(varargin{:});
+end
+
+pnames = {'distance', 'datatype'}; pdvals = {'euc', 'feature'};
+[Dtype, Xtype] = internal.stats.parseArgs(pnames, pdvals, varargin{:});
+
+pfun = proxconfig(Dtype);
+if strcmp(Xtype,'relational')
+    error('The DataType value for this index must be "feature".')
+end
+
 % Validation of the clustering solution 
 N = numel(clust);
 cnames = unique(clust);
 K = numel(cnames);
 Nk = accumarray(clust,ones(N,1),[K,1]);
-if sum(Nk<2) || K==1
+if sum(Nk<1) || K==1
     f = -inf;
     return;
 end
-
-if nargin < 3 || isempty(distance)
-    distType = 'euc';
-else
-    distType = distance;
-end
-pfun = proxconfig(distType);
-
-% ------------------------------------
 
 % Intra-cluster cohesion (compactness)
 M = NaN(K,size(X,2));

@@ -8,11 +8,6 @@
 %   Adan Jose-Garcia (adan.jose@cinvestav.mx)
 %   Wilfrido Gomez Flores (wgomez@cinvestav.mx)
 %
-% Please, cite the following paper where this toolbox was introduced:
-%
-%   [PENDING]...
-%
-%
 % IMPORTANT: First run "RUN_ME_FIRST.m" file to add this toolbox to search path.
 % ------------------------------------------------------------------------
 clc; clear all; close all;
@@ -48,7 +43,5 @@ Dist    = 'euc';            % Distance funtion
 [Yb,Pb,bFit] = acde(X, Kmax, NP, Gmax, CVI, Dist);
 
 %% Exeternal evaluation of the resulting clustering solution
-% plotclusters(X,T,Yb,Pb);    
+plotclusters(X,D.data(:,end),Yb,Pb);    
 % ARI = pairwiseindex(T,Yb);  % The adjusted rand index
-
-

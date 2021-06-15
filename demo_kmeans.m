@@ -8,11 +8,6 @@
 %   Adan Jose-Garcia (adan.jose@cinvestav.mx)
 %   Wilfrido Gomez Flores (wgomez@cinvestav.mx)
 %
-% Please, cite the following paper where this toolbox was introduced:
-%
-%   [PENDING]...
-%
-%
 % IMPORTANT: First run "RUN_ME_FIRST.m" file to add this toolbox to search path.
 %------------------------------------------------------------------------
 clc; clear all; close all;
@@ -31,7 +26,7 @@ CVInames = {'xb','ch','sf','pbm','cs',...
 % List of available distances
 Distnames = {'euc','neuc','cos','pcorr','scorr','lap'};
    
-% List of datasets provided
+% List of some datasets provided
 DSnames = {'Data_4_3','Data_5_2','Moon', 'Iris'};
 
 % ------------------------------------------------------------------------
