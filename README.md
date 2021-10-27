@@ -2,7 +2,7 @@
 
 A first comparison study of the CVIs in **CVIK** using a Differential Evolution approach was reported in:
 ```
-A. José-García, and W. Gómez-Flores.
+A. José-García and W. Gómez-Flores.
 A survey of cluster validity indices for automatic data clustering using differential evolution.
 The Genetic and Evolutionary Computation Conference (GECCO '21), Lille, France, 2021.
 DOI: 10.1145/3449639.3459341
@@ -12,7 +12,7 @@ For more information about the used datasets, visit the [mvc-repository](https:/
 
 ---
  
-   CVI (Cluster validity indices - 28)
+   Cluster validity indices (28)
    -----------------------------
        chindex         - Calinski-Harabasz index (ch).
        cindex          - C index (cind).
@@ -47,7 +47,7 @@ For more information about the used datasets, visit the [mvc-repository](https:/
        evalcvi         - CVI evaluation function.
 
 
-   PROXIMITY
+   Proximity (8)
    -------------------
        eucdist         - Euclidean distance (euc).
        neucdist        - Normalized Euclidean distance (neuc).
@@ -61,7 +61,7 @@ For more information about the used datasets, visit the [mvc-repository](https:/
        proxconfig      - Proximity configuration function
 
 
-   CLUSTERING
+   Clustering (4)
    ------------------
        kmedoids        - K-medoids clustering algorithm.
        acde            - An automatic clustering algorithm based on differential evolution.
@@ -69,7 +69,7 @@ For more information about the used datasets, visit the [mvc-repository](https:/
        depso           - An automatic clustering algorithm based on particle swarm optimization.
 
 
-   EXTERNAL VALIDATION
+   Eternal validation (14)
    -------------------
        inftheoryindex  - External validity indices based on information theory:
                            - Mutual information (mi).
