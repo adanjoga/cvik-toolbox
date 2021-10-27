@@ -1,6 +1,6 @@
-function f = xbindex(X,clrs,varargin)
+function f = xbindex(clust,X,varargin)
 % XBINDEX Evaluation based on the Xie-Beni criterion.
-%   XBINDEX(X, CLUST) computes the Xie-Beni criterion 
+%   XBINDEX(CLUST, X) computes the Xie-Beni criterion 
 %   value which can be used for estimating the number of clusters on data.
 %   The optimal number of clusters is the solution with the lowest index value.
 %
@@ -9,8 +9,8 @@ function f = xbindex(X,clrs,varargin)
 %   a clustering solution. By default, the Xie-Beni index uses
 %   the Euclidean distance between points in X.
 %
-%   V = XBINDEX(X, CLUST) returns a positive numeric value corresponding to
-%   the Calinski-Harabasz index.
+%   V = XBINDEX(CLUST, X) returns a positive numeric value corresponding to
+%   the Xie-Beni index.
 %   
 %   V = XBINDEX(..., 'DISTANCE', value) computes the Xie-Beni index using
 %   a specified distance measure. The available built-in measures are:
@@ -21,48 +21,41 @@ function f = xbindex(X,clrs,varargin)
 %       'scorr'         - Spearman's correlation coefficient.
 %       'lap'           - Laplacian distance.
 %
-%
 %   Example:
 %   -------
 %   load fisheriris;
 %   clust = kmeans(meas,3,'distance','sqeuclidean');
-%   eva   = xbindex(meas, clust);
+%   eva   = xbindex(clust, meas);
 %
 %
-%   See also EVALCVI, CVICONFIG, SILINDEX, DUNNINDEX
+%   See also EVALCVI, CVICONFIG, CHINDEX, DBINDEX, PBMINDEX, SFINDEX, DBCVINDEX
 %
 %
 %   Reference:
 %   ----------
-%   T. Calinski, J. Harabasz, "A dendrite method for cluster analysis," 
-%   Communications in Statistics - Theory and Methods, 
-%   Vol. 3, No. 1, pp. 1-27, 1974.
+%   Xuanli Lisa Xie and Gerardo Beni, "A Validity Measure for Fuzzy Clustering," 
+%   IEEE Transactions on Pattern Analysis and Machine Intelligence, 
+%   Vol. 13, No. 8, pp. 841–847, 1991.
 %
 % ------------------------------------------------------------------------
 %   Version 1.0 (Matlab R2020b Unix)
 %   Copyright (c) 2021, A. Jose-Garcia and W. Gomez-Flores
 % ------------------------------------------------------------------------
 
-% Parameters validations
+%Parameter validation
 if nargin > 2
     [varargin{:}] = convertStringsToChars(varargin{:});
 end
-
-pnames = {'distance', 'datatype'}; pdvals = {'euc', 'feature'};
-[Dtype, Xtype] = internal.stats.parseArgs(pnames, pdvals, varargin{:});
-
+pnames = {'distance'}; pdvals = {'euc'};
+[Dtype] = internal.stats.parseArgs(pnames, pdvals, varargin{:});
 pfun = proxconfig(Dtype);
-if strcmp(Xtype,'relational')
-    error('The DataType value for this index must be "feature".')
-end
-
+% ------------------------------------------------------------------------
 % Validation of the clustering solution 
-N = numel(clrs);
-clusts = unique(clrs);
-K = numel(clusts);
-Nk = accumarray(clrs,ones(N,1),[K,1]);
-
-if numel(clusts) ~= K || sum(Nk<2)
+N = numel(clust);
+cnames = unique(clust);
+K = numel(cnames);
+Nk = accumarray(clust,ones(N,1),[K,1]);
+if sum(Nk<1) || K==1
     f = inf;
     return;
 end
@@ -71,7 +64,7 @@ end
 M = NaN(K,size(X,2));
 sumD = zeros(K,1);
 for i = 1:K
-    members = (clrs == clusts(i));
+    members = (clust == cnames(i));
     M(i,:) = mean(X(members,:),1);
     sumD(i)= sum(feval(pfun,X(members,:)',M(i,:)').^2);          
 end

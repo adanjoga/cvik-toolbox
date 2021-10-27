@@ -1,7 +1,7 @@
 function [fun,opt] = cviconfig(cvi)
 %CVICONFIG CVI configuration object.
 %   CVICONFIG(CVI) creates a CVI configuration object. CVI is a string 
-%   representing the criterion to be used.
+%   representing the clustering criterion to be used.
 %
 %   CVICONFIG returns an error if the CVI does not exist in the toolbox.
 %
@@ -54,7 +54,6 @@ elseif strcmpi(cvi,'ch')
     % Calinski-Harabasz index
     fun = @chindex; 
     opt = 'mx';
-    type = 'feature';
 elseif strcmpi(cvi,'pbm')
     % I or PBM index
     fun = @pbmindex;  
@@ -75,7 +74,6 @@ elseif strcmpi(cvi,'sil')
     % Silhouette index
     fun = @silindex;
     opt = 'mx';
-    type = 'relational';
 elseif strcmpi(cvi,'cs')
     % CS index
     fun = @csindex;
@@ -100,17 +98,33 @@ elseif strcmpi(cvi,'sdunn')
     % Sym-Dunn index
     fun = @symdunnindex; 
     opt = 'mx';
-elseif strcmpi(cvi,'gamma')
-    % Gamma index
-    fun = @gindex;
-    opt = 'mn';
 elseif strcmpi(cvi,'cind')
     % C index
     fun = @cindex;
     opt = 'mn';
-elseif strcmpi(cvi,'os')
-    % OS index
-    fun = @osindex;
+elseif strcmpi(cvi,'cvdd')
+    % cvdd index
+    fun = @cvddindex;
+    opt = 'mx';
+elseif strcmpi(cvi,'cvnn')
+    % cvnn index
+    fun = @cvnnindex;
+    opt = 'mn';    
+elseif strcmpi(cvi,'dbcv')
+    % dbcv index
+    fun = @dbcvindex;
+    opt = 'mx';
+elseif strcmpi(cvi,'lccv')
+    % lccv index
+    fun = @lccvindex;
+    opt = 'mx';  
+elseif strcmpi(cvi,'ssdd')
+    % ssdd index
+    fun = @ssddindex;
+    opt = 'mn';
+elseif strcmpi(cvi,'wb')
+    % wb index
+    fun = @wbindex;
     opt = 'mn';
 else
     error('Unknown cluster validity index');

@@ -23,7 +23,7 @@ Nobj        = MODEData.NOBJ;        % Number of objectives.
 
 X           = MODEData.X;           % Dataset.
 Kmax        = MODEData.KMAX;        % Maximum number of clusters.
-CVIs        = MODEData.CVIs;     % Instance.
+CVIs        = MODEData.CVIs;        % Instance.
 
 %% Initialize and evaluate population
 pfun    = proxconfig('euc');    % Defines the proximity measure function.
@@ -62,8 +62,8 @@ for i = 1:POPSIZE
     % Verify the number points (at least 3 points) per group
     [Mi,clrs] = checkMi(X,Pi,Ki,pfun); % Gets Ci = Centroids, Mi = Medoids
     
-    f1 = feval(cvifun1,X,clrs);
-    f2 = feval(cvifun2,X,clrs);
+    f1 = feval(cvifun1,clrs,X);
+    f2 = feval(cvifun2,clrs,X);
     JxParent(i,:) = [f1 f2];
     
     Parent(Ta,1:end-1,i) = Mi;	% Update the prototypes
@@ -108,8 +108,8 @@ for g=1:MAXGEN
         % Verify the number points (at least 3 points) per group
         [Ut,clrs] = checkMi(X,Ut,Ki,pfun);
         
-        f1 = feval(cvifun1,X,clrs);
-        f2 = feval(cvifun2,X,clrs);
+        f1 = feval(cvifun1,clrs,X);
+        f2 = feval(cvifun2,clrs,X);
         fUi = [f1 f2];
         
         % Update the modified vector and join the thresholds

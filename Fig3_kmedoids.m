@@ -44,11 +44,11 @@ for k=1:Kmax
 end
 
 % Evaluation of the clustering solutions using the 'sil' index
-eva = evalcvi(DXX,'relational', clust, cvi);
+eva = evalcvi(DXX, clust, cvi, 'DataType','relational');
 
 Kb = eva.OptimalK; % Estimated k value
 Tb = clust(:,Kb);  % Estimated clustering solution
-ARI_val = pairwiseindex(T,Tb)
+ARI_val = pairwiseindex(T,Tb);
 % ------------------------------------------------------------------------
 %% Figure 1: 2D-Scatter plot
 figure(1)

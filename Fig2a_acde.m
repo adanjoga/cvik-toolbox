@@ -38,12 +38,12 @@ X = data(:,1:end-1); T = data(:,end);
 
 Kmax    = 10;               % Maximum number of clusters
 NP      = 10*size(X,2);     % Population size
-Gmax    = 100;              % Number of generations
+Gmax    = 200;              % Number of generations
 CVI     = 'ch';             % CVI name
 Dist    = 'euc';            % Distance funtion
 % ------------------------------------------------------------------------
 %% Run the ACDE algorithm
-rng default; rng(1);
+%rng default; rng(0);
 [Tb,Pb,bFit,mFit] = acde(X, Kmax, NP, Gmax, CVI, Dist);
 
 %% Clustering performance

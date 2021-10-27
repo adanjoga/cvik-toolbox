@@ -36,7 +36,6 @@ function [IDX,Mb,bFit,mFit,gfit] = acde(X,Kmax,NP,Gmax,cvi,distance)
 %       'scorr'         - Spearman's correlation coefficient.
 %       'lap'           - Laplacian distance.
 %
-%
 %   Example:
 %   -------
 %   % Parameters related to the automatic clustering problem
@@ -54,7 +53,6 @@ function [IDX,Mb,bFit,mFit,gfit] = acde(X,Kmax,NP,Gmax,cvi,distance)
 %
 %   See also EVALCVI, CVICONFIG
 %
-%
 %   Reference:
 %   ----------
 %   D. Das, A. Abraham, A. Konar, "﻿Automatic Clustering Using an Improved 
@@ -65,15 +63,6 @@ function [IDX,Mb,bFit,mFit,gfit] = acde(X,Kmax,NP,Gmax,cvi,distance)
 %   Version 1.0 (Matlab R2020b Unix)
 %   Copyright (c) 2021, A. Jose-Garcia and W. Gomez-Flores
 % ------------------------------------------------------------------------
-
-% -------------- TO BE REMOVED
-% Xmean = mean(X,1)';     % Global mean value of input data X
-% DXX = feval(pfun,X',X');
-% if strcmpi(cvi,'sdbw')
-%     sX  = var(X,0,1);   % Global variance of input data X
-%     sXX = sqrt(sum(sX.^2,2)); % 2- norm of input data X
-% end
-% -------------------------------------------------------------------------
 
 if nargin < 6 || isempty(distance)
     distance = 'euc';
@@ -109,7 +98,7 @@ for i = 1:NP
     [Mi, clrs] = checkMi(X,Mi,Ki,pfun);
     
     % Evaluation of a candidate clustering solution
-    fit(i) = feval(cvifun,X,clrs,'distance',distance);
+    fit(i) = feval(cvifun,clrs,X,'distance',distance);
 
     % Update the corresponding vector in the initial population
     M(Ti>TH,1:end-1,i) = Mi;
@@ -139,7 +128,6 @@ for g = 1:Gmax
        % Target vector
        Mi = M(:,:,i);
        fMi = fit(i);
-       
        % MUTATION (DONOR VECTOR: Vi)
        j = setdiff(randperm(NP),i,'stable');
        F = 0.5*(1+rand(1,2));
@@ -162,7 +150,7 @@ for g = 1:Gmax
        % Validation of the minimum number of data points per cluster (>=2)
        [Ut,clrs] = checkMi(X,Ut,Ki,pfun);
        % Evaluation of the candidate clustering solution
-       fUi = feval(cvifun,X,clrs,'distance',distance);
+       fUi = feval(cvifun,clrs,X,'distance',distance);
        % Update the corresponding individual
        Ui(Ti>TH,:) = Ut; Ri = [Ui,Ti];
        

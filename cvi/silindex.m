@@ -1,35 +1,54 @@
-function f = silindex(X,Xtype,clust,distance)
+function f = silindex(clust, DXX)
+% SILINDEX Evaluation based on the Silhouette index.
+%   SILINDEX(CLUST, DXX) computes the Silhouette criterion 
+%   value which can be used for estimating the number of clusters on data.
+%   The optimal number of clusters is the solution with the highest index value.
+%
+%   DXX is an N-by-N dissimilarity matrix.
+%   CLUST is a numeric vector that represents a clustering partition. 
+%
+%   V = SILINDEX(CLUST, DXX) returns a positive numeric value corresponding to
+%   the Silhouette index.
+%   
+%
+%   Example:
+%   -------
+%   load fisheriris;
+%   clust = kmeans(meas,3,'distance','sqeuclidean');
+%   DXX = pdist2(meas,meas,'Euclidean');
+%   eva   = silindex(clust, DXX);
+%
+%   See also EVALCVI, CVICONFIG, CVNNINDEX, CVDDINDEX, DUNNINDEX, CINDEX
+%
+%
+%   Reference:
+%   ----------
+%   Peter J. Rousseeuw, "Silhouettes:  A Graphical Aid to the Interpretation 
+%   and Validation of Cluster Analysis," 
+%   Journal of Computational and Applied Mathematics, 
+%   Vol. 20, pp. 53-65, 1987.
+%
+% ------------------------------------------------------------------------
+%   Version 1.0 (Matlab R2020b Unix)
+%   Copyright (c) 2021, A. Jose-Garcia and W. Gomez-Flores
+% ------------------------------------------------------------------------
 
-% Validation of the clustering solution 
+% Validation of the clustering solution
 N = numel(clust);
 cnames = unique(clust);
 K = numel(cnames);
 Nk = accumarray(clust,ones(N,1),[K,1]);
-
 if sum(Nk<1) || K==1
     f = -inf;
     return;
 end
 
-if nargin < 4 || isempty(distance)
-    distance = 'euc';
-end
-
-if strcmp(Xtype,'feature')
-    pfun    = proxconfig(distance);     % Defines the proximity measure function.
-    DXX     = real(feval(pfun,X',X'));  % distance matrix based on pfun.
-elseif strcmp(Xtype,'relational')
-    DXX     = X;                        % Ignote the distance parameter            
-else
-    error('Unknown input data type. It should be "feature" or "relational".');
-end
-% ------------------------------------
-% Evaluacion del IVG
+% CVI Computation
 DX = DXX.^2;
 S = zeros(1,K);
 for i = 1:K
     XC = DX(clust==cnames(i),clust==cnames(i));
-    ai = sum(XC,2)/max(Nk(i)-1, 1); % modificacion 25-10-16
+    ai = sum(XC,2)/max(Nk(i)-1, 1); % modification 25-10-16
     %ai = mean(XC,2);
     dd = zeros(Nk(i),K-1);
     k = 0;

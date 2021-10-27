@@ -15,6 +15,7 @@ addpath([pwd '/proximity']);
 addpath([pwd '/datasets']);
 addpath([pwd '/validation']);
 addpath([pwd '/cvi']);
+addpath([pwd '/selection']);
 addpath([pwd '/utils']);
 
 % List of available cluster validity indices (CVIs)
@@ -53,7 +54,7 @@ MODEData.MAXGEN = 500;          % Generation bound
 OUT = modec(MODEData);
 
 %% Supervised Model Selection using ARI
-[Clr,ARIb,idx1,ARIvalues] = cmsARI(OUT.PClrs, MODEData.T);
+[Clr,ARIb,idx1,ARIvalues] = supervised(OUT.PClrs, MODEData.T);
 disp(['Best ARI = ' num2str(ARIb) ' | Best ID = ' num2str(idx1) ' | PFA size = ' num2str(size(OUT.PClrs,2))]);
 
 plotPFA(OUT.PFront,2,idx1)

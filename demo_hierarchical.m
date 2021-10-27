@@ -52,4 +52,5 @@ for k=1:Kmax
 end
 
 % Evaluation of the clustering solutions using the 'ch' index
-eva = evalcvi(meas, clust, 'ch');
+DXX = pdist2(meas,meas,'Euclidean'); % Euclidean distance matrix
+eva = evalcvi(clust, 'sil', DXX)

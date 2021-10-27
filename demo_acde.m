@@ -16,6 +16,7 @@ addpath([pwd '/datasets']);
 addpath([pwd '/proximity']);
 addpath([pwd '/cvi']);
 addpath([pwd '/clustering']);
+addpath([pwd '/utils']);
 
 % List of available cluster validity indices (CVIs)
 CVInames = {'xb','ch','sf','pbm','cs','gd31','gd41','gd51','gd33','gd43',...

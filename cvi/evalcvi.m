@@ -1,16 +1,23 @@
-function struct = evalcvi(X, clust, cvi, varargin)
+function struct = evalcvi(clust, cvi, data, varargin)
 % EVALCVI Evaluation of clustering solutions using a cluster validity index.
-%   EVAL = EVALCVI(X, CLUST, CVI) creates an evaluation object
+%   EVAL = EVALCVI(CLUST, CVI, DATA) creates an evaluation object
 %   which can be used for estimating the number of clusters on data.
 %
-%   X can be an N-by-P matrix of data with one row per observation and one
-%   column per variable or it can be an N-by-N dissimilarity matrix. 
-%   CLUST is a numeric matrix representing a set of  clustering solutions. 
-%   In CLUST, column J contains the cluster indices for each of the N points for the 
-%   J-th clustering solution. CVI is a string representing the criterion
-%   to be used. See the list of available CVIs by typing 'help cviconfig'.
-%   By default, it is assumed that X is an N-by-P matrix and the Euclidean
-%   distance is used.
+%   CLUST represents a set of clustering solutions. 
+%   It must have N rows and contain integers. Column J contains the
+%   cluster indices for each of the N points in the Jth clustering solution.
+%   CVI is a string representing the criterion to be used. 
+%   See the list of available CVIs by typing 'help cviconfig'.
+%   DATA can be an N-by-P data matrix with one row per observation and one
+%   column per variable (X) or it can be an N-by-N dissimilarity matrix (DXX).
+%
+%   If DATA is a feature set (X), it should be used when the CVI is:
+%   'ch','db','xb','gd41','gd51','gd33','gd43','gd53','sdbw','pbm', 'cs',
+%   'db2','sf','sym','sdb','sdi','cop','sv','wb','dbcv','lccv', or 'ssdd'.
+%
+%   If DATA is a dissimilarity matrix (DXX), it should be used when the CVI is:
+%   'dunn','ci','sil','gd31','cvnn', or 'cvdd'
+%
 %
 %   EVAL return an object with the following properties:
 %   	OptimalK         - The optimal number of clusters suggested.
@@ -29,12 +36,6 @@ function struct = evalcvi(X, clust, cvi, varargin)
 %       'scorr'         - Spearman's correlation coefficient.
 %       'lap'           - Laplacian distance.
 %
-%   'Datatype' -  perform the evaluation of the CVI depending on:
-%       'feature'       - Feature data (the default). X must be an N-by-P matrix
-%       'relational'    - Normalized Euclidean distance. X must be an N-by-N
-%                         dissimilarity matrix. There is no need to
-%                         indicate a distance function.
-%
 %   Example:
 %   -------
 %   load fisheriris;
@@ -43,8 +44,7 @@ function struct = evalcvi(X, clust, cvi, varargin)
 %   for k=1:Kmax
 %       clust(:,k) = kmeans(meas,k,'distance','sqeuclidean');
 %   end
-%   eva = evalcvi(meas,clust,'ch');
-%
+%   eva = evalcvi(clust,'ch',meas);
 %
 %   See also CHINDEX, SILINDEX, DUNNINDEX
 %
@@ -53,18 +53,13 @@ function struct = evalcvi(X, clust, cvi, varargin)
 %   Copyright (c) 2021, A. Jose-Garcia and W. Gomez-Flores
 % ------------------------------------------------------------------------
 
-% Parameters validations
-if nargin > 2
+%Parameters validations
+if nargin > 3
     [varargin{:}] = convertStringsToChars(varargin{:});
 end
 
-pnames = {'distance', 'datatype'}; pdvals = {'euc', 'feature'};
-[Dtype, Xtype] = internal.stats.parseArgs(pnames, pdvals, varargin{:});
-
-
-if ~(strcmp(Xtype,'feature') || strcmp(Xtype,'relational'))
-    error('Unknown input data type. It should be "feature" or "relational".');
-end
+pnames = {'distance'}; pdvals = {'euc'};
+[Dtype] = internal.stats.parseArgs(pnames, pdvals, varargin{:});
 
 % Get the settings for the CVI
 [cvifun,opt] = cviconfig(cvi);
@@ -78,7 +73,7 @@ Values = NaN(1,nclust);
 % Perform the evaluation of the cvi for each clustering solution
 for i=1:nclust
     Klist(i) = numel(unique(clust(:,i)));
-    Values(i) = feval(cvifun, X, clust(:,i), 'distance', Dtype, 'datatype', Xtype);        
+    Values(i) = feval(cvifun, clust(:,i), data);        
 end
 
 % Set NaN values if the cvi value is -inf or +inf

@@ -43,7 +43,7 @@ for k=1:Kmax
 end
 
 % Evaluation of the clustering solutions using the 'ch' index
-eva = evalcvi(X, clust, cvi);
+eva = evalcvi(clust, cvi, X);
 
 Kb = eva.OptimalK; % Estimated k value
 Tb = clust(:,Kb);  % Estimated clustering solution

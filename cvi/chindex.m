@@ -1,15 +1,15 @@
-function f = chindex(X, clust, varargin)
+function f = chindex(clust, X, varargin)
 % CHINDEX Evaluation based on the Calinski-Harabasz criterion.
-%   CHINDEX(X, CLUST) computes the Calinski-Harabasz criterion 
+%   CHINDEX(CLUST, X) computes the Calinski-Harabasz criterion 
 %   value which can be used for estimating the number of clusters on data.
 %   The optimal number of clusters is the solution with the highest index value.
 %
-%   X is an N-by-P matrix of data with one row per observation and one
+%   X is an N-by-P data matrix with one row per observation and one
 %   column per variable. CLUST is a numeric vector that represents 
 %   a clustering solution. By default, the Calinski-Harabasz index uses
 %   the Euclidean distance between points in X.
 %
-%   V = CHINDEX(X, CLUST) returns a positive numeric value corresponding to
+%   V = CHINDEX(CLUST, X) returns a positive numeric value corresponding to
 %   the Calinski-Harabasz index.
 %   
 %   V = CHINDEX(..., 'DISTANCE', value) computes the Calinski-Harabasz index using
@@ -26,11 +26,10 @@ function f = chindex(X, clust, varargin)
 %   -------
 %   load fisheriris;
 %   clust = kmeans(meas,3,'distance','sqeuclidean');
-%   eva   = chindex(meas, clust);
+%   eva   = chindex(clust,meas);
 %
 %
-%   See also EVALCVI, CVICONFIG, SILINDEX, DUNNINDEX
-%
+%   See also EVALCVI, CVICONFIG, DBINDEX, XBINDEX, PBMINDEX, SFINDEX, DBCVINDEX
 %
 %   Reference:
 %   ----------
@@ -43,19 +42,14 @@ function f = chindex(X, clust, varargin)
 %   Copyright (c) 2021, A. Jose-Garcia and W. Gomez-Flores
 % ------------------------------------------------------------------------
 
-% Parameters validations
 if nargin > 2
     [varargin{:}] = convertStringsToChars(varargin{:});
 end
+pnames = {'distance'}; pdvals = {'euc'};
+[mydist] = internal.stats.parseArgs(pnames, pdvals, varargin{:});
+pfun = proxconfig(mydist);
 
-pnames = {'distance', 'datatype'}; pdvals = {'euc', 'feature'};
-[Dtype, Xtype] = internal.stats.parseArgs(pnames, pdvals, varargin{:});
-
-pfun = proxconfig(Dtype);
-if strcmp(Xtype,'relational')
-    error('The DataType value for this index must be "feature".')
-end
-
+% ------------------------------------------------------------------------
 % Validation of the clustering solution 
 N = numel(clust);
 cnames = unique(clust);
