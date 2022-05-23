@@ -1,4 +1,4 @@
-**CVIK** is a Cluster Validity Index Tooolbox for automatic determination of the number of clusters (CVIK). It contains more than 70 functions (m-files). This toolbox was developed with MATLAB R2020b.
+**CVIK** is a Cluster Validity Index Toolbox for automatically determining the number of clusters (CVIK). It contains more than 70 functions (m-files). This toolbox was developed with MATLAB R2020b.
 
 A first comparison study of some CVIs in **CVIK** using a *Differential Evolution approach* was reported in:
 ```
@@ -67,7 +67,7 @@ DOI: 10.1145/3449639.3459341
        depso           - An automatic clustering algorithm based on particle swarm optimization.
 
 
-   Eternal validation (14)
+   External validation (14)
    -------------------
        inftheoryindex  - External validity indices based on information theory:
                            - Mutual information (mi).
