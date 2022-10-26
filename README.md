@@ -71,7 +71,6 @@ DOI: 10.1145/3449639.3459341
    -------------------
        inftheoryindex  - External validity indices based on information theory:
                            - Mutual information (mi).
-                           - Mutual information (mi).
                            - Variation of information (vi).
                            - Normalized mutual information (nvi).
 
