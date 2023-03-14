@@ -1,9 +1,9 @@
 
-## CVIK Toolbox [[`paper`]](https://www.dropbox.com/s/u098gsxbc9o4kh8/2023-SOFTX-manuscript.pdf?dl=0)
+## CVIK Toolbox [`[paper]`](https://www.dropbox.com/s/u098gsxbc9o4kh8/2023-SOFTX-manuscript.pdf?dl=0)
 
-**CVIK** is a Cluster Validity Index toolbox for automatically determining the number of clusters (CVIK). This toolbox was developed with `MATLAB R2020b` and contains more than 70 functions (m-files).
+**CVIK** is a Cluster Validity Index toolbox for automatically determining the number of clusters. This toolbox was developed with `MATLAB R2020b` and contains more than 70 functions (m-files), including 28 cluster validity indices (CVIs).
 
-**CVIK** facilitates implementing the entire pipeline of automatic clustering in two approaches: 
+**CVIK** facilitates implementing the entire pipeline of automatic clustering following two approaches: 
 + Evaluating candidate clustering solutions from classical algorithms, in which the number of clusters increases gradually (Fig.a), and 
 + Assessing potential solutions in evolutionary clustering algorithms using single- and multi-objective optimization methods (Fig.b). 
 
@@ -13,12 +13,12 @@ In addition to the CVIs, this toolbox also implements distinct proximity measure
 
 ## Software Architecture
 
-The CVIK toolbox implements several CVIs and includes other important elements for the automatic data clustering task, such as different proximity measures and external validity indices.
+The CVIK toolbox implements 28 CVIs and includes other important elements for the automatic data clustering task, such as different proximity measures and external validity indices.
 
 ![CVIK Architecture](figures/cvik-architecture.jpg)
  
-## Cluster validity indices (CVIs) - 28 CVIs 
------------------------------
+## Cluster validity indices (28)
+
     chindex         - Calinski-Harabasz index (ch).
     cindex          - C index (cind).
     copindex        - COP index (cop).
@@ -52,7 +52,7 @@ The CVIK toolbox implements several CVIs and includes other important elements f
     evalcvi         - CVI evaluation function.
 
 
-Proximity Measures - (8)
+Proximity Measures (8)
 -------------------
     eucdist         - Euclidean distance (euc).
     neucdist        - Normalized Euclidean distance (neuc).
@@ -66,7 +66,7 @@ Proximity Measures - (8)
     proxconfig      - Proximity configuration function
 
 
-Clustering Algorithms - (4)
+Clustering Algorithms (4)
 ------------------
     kmedoids        - K-medoids clustering algorithm.
     acde            - An automatic clustering algorithm based on differential evolution.
@@ -103,7 +103,7 @@ Wilfrido Gómez-Flores (wgomez@cinvestav.mx)
 
 ## Citation:
 
-If you find our repository and toolbook helpful to your research, please cite our paper:
+If you find our repository and toolbook helpful to your research, please cite our [`paper`](https://www.dropbox.com/s/u098gsxbc9o4kh8/2023-SOFTX-manuscript.pdf?dl=0):
 ```
 @article{JoseGarciaGF23,
     author    = {Adán {José-García} and
