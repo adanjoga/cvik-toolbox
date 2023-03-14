@@ -11,6 +11,12 @@ In addition to the CVIs, this toolbox also implements distinct proximity measure
 
 ![CVIK Diagram](figures/cvik-diagram2.jpg)
 
+> **Note** If you use ``CVIK`` as support to your research consider citing:
+>
+> Adán José-García and Wilfrido Gómez-Flores.
+> **CVIK: A Matlab-based Cluster Validity Index Toolbox for Automatic Data Clustering**
+> SoftwareX, 2023 | [DOI:10.1016/j.softx.2023.101359](https://www.dropbox.com/s/u098gsxbc9o4kh8/2023-SOFTX-manuscript.pdf?dl=0)
+
 ## Software Architecture
 
 The CVIK toolbox implements 28 CVIs and includes other important elements for the automatic data clustering task, such as different proximity measures and external validity indices.
