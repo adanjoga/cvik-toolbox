@@ -1,12 +1,14 @@
-**CVIK** is a Cluster Validity Index Toolbox for automatically determining the number of clusters (CVIK). It contains more than 70 functions (m-files). This toolbox was developed with MATLAB R2020b.
 
-A first comparison study of some CVIs in **CVIK** using a *Differential Evolution approach* was reported in:
-```
-A. José-García and W. Gómez-Flores.
-A survey of cluster validity indices for automatic data clustering using differential evolution.
-The Genetic and Evolutionary Computation Conference* (GECCO '21), Lille, France, 2021.
-DOI: 10.1145/3449639.3459341
-```
+## CVIK Toolbox
+
+**CVIK** is a Cluster Validity Index toolbox for automatically determining the number of clusters (CVIK). This toolbox was developed with `MATLAB R2020b` and contains more than 70 functions (m-files).
+
+**CVIK** facilitates implementing the entire pipeline of automatic clustering in two approaches: 
++ evaluating candidate clustering solutions from classical algorithms, in which the number of clusters increases gradually, and 
++ assessing potential solutions in evolutionary clustering algorithms using single- and multi-objective optimization methods. 
+
+In addition to the CVIs, this toolbox also implements distinct proximity measures to estimate data similarity, and the CVIs are capable of processing both feature data and relational data. 
+
 
 ---
  
@@ -92,4 +94,18 @@ DOI: 10.1145/3449639.3459341
 ```
 Adán José-García (adan.jose@cinvestav.mx)
 Wilfrido Gómez-Flores (wgomez@cinvestav.mx)
+```
+
+## Citation:
+
+If you find our repository and toolbook helpful to your research, please cite our paper:
+```
+@article{JoseGarciaGF23,
+    author    = {Adán {José-García} and
+                 Wilfrido {Gómez-Flores}},
+    title     = {CVIK: A Matlab-based Cluster Validity Index Toolbox for Automatic Data Clustering},
+    journal   = {SoftwareX},
+    doi       = {doi.org/10.1016/j.softx.2023.101359},
+    year      = {2023}
+}
 ```
