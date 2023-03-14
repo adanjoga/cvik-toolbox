@@ -1,7 +1,7 @@
 
 ## CVIK Toolbox [`[paper]`](https://www.dropbox.com/s/u098gsxbc9o4kh8/2023-SOFTX-manuscript.pdf?dl=0)
 
-**CVIK** is a Cluster Validity Index toolbox for automatically determining the number of clusters. This toolbox was developed with `MATLAB R2020b` and contains more than 70 functions (m-files), including 28 cluster validity indices (CVIs).
+**``CVIK``** is a Cluster Validity Index toolbox for automatically determining the number of clusters. This toolbox was developed with `MATLAB R2020b` and contains more than 70 functions (m-files), including 28 cluster validity indices (CVIs).
 
 **CVIK** facilitates implementing the entire pipeline of automatic clustering following two approaches: 
 + Evaluating candidate clustering solutions from classical algorithms, in which the number of clusters increases gradually (Fig.a), and 
@@ -11,11 +11,13 @@ In addition to the CVIs, this toolbox also implements distinct proximity measure
 
 ![CVIK Diagram](figures/cvik-diagram2.jpg)
 
+
 > **Note** If you use ``CVIK`` as support to your research consider citing:
 >
 > Adán José-García and Wilfrido Gómez-Flores.
-> **CVIK: A Matlab-based Cluster Validity Index Toolbox for Automatic Data Clustering**
+> **CVIK: A Matlab-based Cluster Validity Index Toolbox for Automatic Data Clustering.**
 > SoftwareX, 2023 | [DOI:10.1016/j.softx.2023.101359](https://www.dropbox.com/s/u098gsxbc9o4kh8/2023-SOFTX-manuscript.pdf?dl=0)
+
 
 ## Software Architecture
 
