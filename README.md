@@ -1,5 +1,7 @@
 
-## CVIK Toolbox [`[paper]`](https://www.dropbox.com/s/u098gsxbc9o4kh8/2023-SOFTX-manuscript.pdf?dl=0)
+## CVIK Toolbox [`[paper]`](https://www.dropbox.com/s/u098gsxbc9o4kh8/2023-SOFTX-manuscript.pdf?dl=0) 
+
+[![View CVIK Toolbox on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://fr.mathworks.com/matlabcentral/fileexchange/126595-cvik-toolbox)
 
 **``CVIK``** is a Cluster Validity Index toolbox for automatically determining the number of clusters. This toolbox was developed with `MATLAB R2020b` and contains more than 70 functions (m-files), including 28 cluster validity indices (CVIs).
 
